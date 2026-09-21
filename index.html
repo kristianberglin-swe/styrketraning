@@ -1113,6 +1113,11 @@ body{
   display:block;
 }
 </style>
+
+<style id="workoutReadabilityV87">
+.mw-ex-row small,.mw-ex-row small b{color:#31463a!important;opacity:1!important}
+.mw-video-link{display:inline-block;margin-top:6px;color:#075f3b!important;font-weight:800;text-decoration:underline}
+</style>
 </head><body>
 <script>document.body.classList.remove('video-modal-open');</script><header><h1>Teori styrketräning Fribergaskolan</h1><p>Lär dig grunderna, testa dina kunskaper och bli din egen coach.</p></header><main class="wrap"><section id="home"><div class="grid" id="grid"></div><div class="gym-motto">Kunskap • Träning • Resultat</div></section><section id="page" class="page"><button class="back" onclick="home()">← Alla avsnitt</button><div class="lesson"><div class="num" id="chapterNo"></div><h2 id="title"></h2><div id="content"></div><button class="quizStart" id="quizStart" onclick="startQuiz()">Starta quiz →</button><div class="quiz" id="quiz"><h2>Quiz</h2><div id="questions"></div><div class="result" id="result"></div><button class="next" id="next" style="display:none" onclick="home()">Tillbaka till avsnitten</button></div></div></section>
 <section id="myWorkoutSection">
@@ -1452,9 +1457,37 @@ function plateMarkup(label,sub,i){
     <div class="plate-sub">${sub}</div>
   </div>`;
 }
+
+const mwVideoLinks={
+'Ryggresning':'https://www.styrkelabbet.se/ryggresning/',
+'Chins':'https://www.styrkelabbet.se/chins/',
+'Armhävningar':'https://www.styrkelabbet.se/armhavningar/',
+'Dips':'https://www.styrkelabbet.se/dips/',
+'Axelpress':'https://www.styrkelabbet.se/axelpress-med-hantlar/',
+'Knäböj':'https://www.styrkelabbet.se/knaboj/',
+'Marklyft':'https://www.styrkelabbet.se/marklyft/',
+'Latsdrag':'https://www.styrkelabbet.se/latsdrag/',
+'Kabelrodd':'https://www.styrkelabbet.se/kabelrodd-med-smalt-grepp/',
+'Bänkpress':'https://www.styrkelabbet.se/bankpress/',
+'Sidolyft med hantlar':'https://www.styrkelabbet.se/sidolyft-med-hantlar/'
+};
+function mwVideoLink(name){
+ const u=mwVideoLinks[name];
+ return u?'<br><a class="mw-video-link" href="'+u+'" target="_blank" rel="noopener">▶ Se instruktion/film på Styrkelabbet</a>':'';
+}
+
+const workoutStarKey='strengthWorkoutCreated';
+function awardWorkoutStar(){
+  localStorage.setItem(workoutStarKey,'1');
+  const card=document.querySelector('.workout-card');
+  if(card && !card.querySelector('.workout-master-star')){
+    card.insertAdjacentHTML('afterbegin','<div class="master-star workout-master-star" title="Eget pass skapat">⭐</div>');
+  }
+}
+
 function render(){
  grid.innerHTML=chapters.map((c,i)=>`<article class="card plate-card" onclick="openCh(${i})">${mastered.has(i)?'<div class="master-star" title="Alla quizfrågor rätt">⭐</div>':''}${plateMarkup(c.t,'AVSNITT '+(i+1),i)}<div class="plate-action">${mastered.has(i)?'Alla rätt ⭐':'Öppna →'}</div></article>`).join('')
- +`<article class="card plate-card workout-card" onclick="openMyWorkout()">${plateMarkup('Eget pass','SKAPA PASS',chapters.length)}<div class="plate-action">Öppna →</div></article>`
+ +`<article class="card plate-card workout-card" onclick="openMyWorkout()">${localStorage.getItem(workoutStarKey)==='1'?'<div class="master-star workout-master-star" title="Eget pass skapat">⭐</div>':''}${plateMarkup('Eget pass','SKAPA PASS',chapters.length)}<div class="plate-action">Öppna →</div></article>`
  +`<article class="card plate-card test-card" onclick="openTestExam()">${plateMarkup('Testprov','50 FRÅGOR',chapters.length+1)}<div class="plate-action">Starta →</div></article>`;
 }
 function openCh(i){
@@ -2034,7 +2067,7 @@ function generateWorkout(){
    html+='<div class="mw-pass" data-pass="'+i+'"><h3>Pass '+(i+1)+': '+t.name+'</h3><div class="mw-warmup"><b>🔥 Uppvärmning:</b> '+warmupSuggestion(ctx,i)+'</div><div class="mw-list">';
    chosen.forEach(x=>{
      const pr=prescription(ctx,x);
-     html+='<div class="mw-ex-row"><input class="mw-exname" value="'+x.n+'" aria-label="Övning"><input value="'+pr.sets+'" aria-label="Set"><input value="'+pr.reps+'" aria-label="Repetitioner"><button class="mw-smallbtn danger" onclick="this.parentElement.remove()">Ta bort</button><div style="grid-column:1/-1"><small>'+x.m+(x.extra?' • Extra övning':'')+'<br><b>Varför:</b> '+why(x,ctx,textPref)+'.</small></div></div>';
+     html+='<div class="mw-ex-row"><input class="mw-exname" value="'+x.n+'" aria-label="Övning"><input value="'+pr.sets+'" aria-label="Set"><input value="'+pr.reps+'" aria-label="Repetitioner"><button class="mw-smallbtn danger" onclick="this.parentElement.remove()">Ta bort</button><div style="grid-column:1/-1"><small>'+x.m+(x.extra?' • Extra övning':'')+'<br><b>Varför:</b> '+why(x,ctx,textPref)+'.'+mwVideoLink(x.n)+'</small></div></div>';
    });
    html+='</div><div class="mw-toolbar"><button class="mw-smallbtn" onclick="addMwExercise(this)">+ Lägg till egen övning</button></div></div>';
  });
@@ -2130,6 +2163,7 @@ function gradeTestExam(){
  }
  html+='<button class="mw-smallbtn" onclick="startTestExam()">Gör ett nytt testprov</button></div>';
  document.getElementById('testResult').innerHTML=html;
+  awardWorkoutStar();
  document.getElementById('testSubmit').style.display='none';
  document.getElementById('testResult').scrollIntoView({behavior:'smooth',block:'start'});
 }
