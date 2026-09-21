@@ -1176,6 +1176,36 @@ body{
  .max-strength-photo{float:none;width:min(300px,82%);margin:14px auto}
 }
 </style>
+
+<style id="rmCalculatorV93">
+.rm-calc{
+  clear:both;
+  margin:28px 0 8px;
+  padding:22px;
+  border:2px solid #9bc7ad;
+  border-radius:18px;
+  background:linear-gradient(145deg,#f4fbf6,#e9f5ed);
+}
+.rm-calc h3{margin-top:0;color:#164c35}
+.rm-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.rm-fields label{font-weight:800;color:#243b30}
+.rm-fields input{
+  display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px;
+  border:1px solid #8aa697;border-radius:10px;background:#fff;color:#17251e;font-size:1rem;
+}
+#rmCalcBtn{
+  border:0;border-radius:11px;padding:12px 20px;background:#176b48;color:#fff;
+  font-weight:900;font-size:1rem;cursor:pointer;
+}
+.rm-result{
+  margin-top:16px;padding:15px;border-radius:12px;background:#fff;color:#173c2c;
+  font-size:1.12rem;font-weight:800;min-height:24px;
+}
+.rm-result strong{font-size:1.35rem}
+.rm-note{font-size:.9rem!important;color:#40554a!important;margin-bottom:7px!important}
+.rm-source{color:#075f3b;font-weight:800}
+@media(max-width:600px){.rm-fields{grid-template-columns:1fr}}
+</style>
 </head><body>
 <script>document.body.classList.remove('video-modal-open');</script><header><h1>Teori styrketräning Fribergaskolan</h1><p>Lär dig grunderna, testa dina kunskaper och bli din egen coach.</p></header><main class="wrap"><section id="home"><div class="grid" id="grid"></div><div class="gym-motto">Kunskap • Träning • Resultat</div></section><section id="page" class="page"><button class="back" onclick="home()">← Alla avsnitt</button><div class="lesson"><div class="num" id="chapterNo"></div><h2 id="title"></h2><div id="content"></div><button class="quizStart" id="quizStart" onclick="startQuiz()">Starta quiz →</button><div class="quiz" id="quiz"><h2>Quiz</h2><div id="questions"></div><div class="result" id="result"></div><button class="next" id="next" style="display:none" onclick="home()">Tillbaka till avsnitten</button></div></div></section>
 <section id="myWorkoutSection">
@@ -1387,6 +1417,22 @@ Plankan 3 set</div>
 <p>För elever och personer som är ovana vid styrketräning är det viktigare att först lära sig övningarna med en belastning som går att kontrollera än att försöka hitta sin maximala vikt.</p>
 
 <div class="info"><strong>Kom ihåg:</strong> Antalet repetitioner, antalet set, belastningen och vilan hör ihop. Anpassa dem efter <strong>målet med träningen</strong> och välj alltid en belastning där du kan behålla en bra teknik.</div>
+
+<div class="rm-calc">
+  <h3>Beräkna ditt uppskattade max</h3>
+  <p><strong>Istället för att testa ditt max kan du göra fler repetitioner på t.ex. bänkpress och sedan använda denna kalkylator för att se vad du troligen skulle göra som max.</strong></p>
+  <div class="rm-fields">
+    <label>Vikt du lyfte (kg)
+      <input id="rmWeight" type="number" min="1" max="500" step="0.5" inputmode="decimal" placeholder="t.ex. 60">
+    </label>
+    <label>Antal repetitioner
+      <input id="rmReps" type="number" min="1" max="30" step="1" inputmode="numeric" placeholder="t.ex. 8">
+    </label>
+  </div>
+  <button type="button" id="rmCalcBtn" onclick="calculate1RM()">Beräkna max</button>
+  <div id="rmResult" class="rm-result" aria-live="polite">Fyll i vikt och repetitioner.</div>
+  <p class="rm-note">Resultatet är en uppskattning, inte ett exakt max. Kalkylatorn använder Epleys formel.</p>
+</div>
 `,q:[['Vad betyder reps?',['Antal gånger en rörelse utförs','Antal träningsdagar','Vilotid'],'Antal gånger en rörelse utförs'],['10 armhävningar, vila, 10 till är...',['2 set med 10 reps','10 set med 2 reps','20 set'],'2 set med 10 reps'],['Vad kännetecknar uthållighetsinriktad träning?',['Minst 15 reps','Alltid 1 rep','Ingen belastning alls'],'Minst 15 reps']]},
 {t:'Träna rätt & säkert',d:'Uppvärmning, ordning och strikt teknik.',html:`
 <h3>Träna rätt &amp; säkert</h3>
@@ -2271,6 +2317,27 @@ function gradeTestExam(){
   awardWorkoutStar();
  document.getElementById('testSubmit').style.display='none';
  document.getElementById('testResult').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+
+<script id="rmCalculatorFixV95">
+function calculate1RM(){
+  var wEl=document.getElementById('rmWeight');
+  var rEl=document.getElementById('rmReps');
+  var out=document.getElementById('rmResult');
+  if(!wEl || !rEl || !out) return;
+
+  var w=parseFloat(String(wEl.value).replace(',','.'));
+  var r=parseInt(rEl.value,10);
+
+  if(!isFinite(w) || w<=0 || !isFinite(r) || r<1 || r>30){
+    out.textContent='Fyll i en giltig vikt och 1–30 repetitioner.';
+    return;
+  }
+
+  var est=(r===1) ? w : w*(1+r/30);
+  var rounded=Math.round(est*2)/2;
+  out.innerHTML='Ditt uppskattade max är cirka <strong>'+String(rounded).replace('.',',')+' kg</strong>.';
 }
 </script>
 </body></html>
