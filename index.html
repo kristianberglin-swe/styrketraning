@@ -1283,7 +1283,27 @@ body{
 @keyframes mqHintPulse{from{opacity:.42}to{opacity:.9}}
 @media(prefers-reduced-motion:reduce){#muscleVisualQuizSection .mq-area-hint{animation:none;opacity:.72}}
 </style>
-</head><body>
+<style id="goalsStylesV101">
+.goals-shell{background:#fff;border-radius:22px;padding:clamp(20px,4vw,36px);box-shadow:0 12px 35px rgba(0,0,0,.12);color:#26362e;line-height:1.7}
+.goals-shell h2{color:#193e2d;margin:8px 0 25px}
+.goals-shell h3{color:#174f37;border-bottom:2px solid #b7d9c3;padding-bottom:8px;margin:28px 0 12px}
+.goals-shell ul{padding-left:25px}.goals-shell li{margin:9px 0}
+</style><style id="studyQuestionsV102">
+.study-shell{background:#f7faf8;color:#193b2c;border-radius:20px;padding:clamp(16px,3vw,34px);box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.study-shell h2{color:#153e2c}.study-shell p{color:#314b3e}
+.study-status{background:#dceee1;color:#17462b;padding:10px 14px;border-radius:9px;font-weight:700;margin:15px 0}
+.study-item{padding:17px 0;border-bottom:1px solid #d1dfd5}
+.study-item label{display:block;color:#183e2d;font-weight:800;margin-bottom:9px;line-height:1.5}
+.study-item textarea{display:block;box-sizing:border-box;width:100%;min-height:95px;resize:vertical;padding:12px 14px;border:1px solid #8aa995;border-radius:10px;background:#fff;color:#152c21;font:inherit;line-height:1.5}
+.study-item textarea:focus{outline:3px solid #79b58e;outline-offset:2px}
+.study-actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.study-actions button{background:#176b48;color:#fff;border:0;border-radius:10px;padding:13px 17px;font-weight:800;cursor:pointer}
+.study-actions .study-clear{background:#65413a}
+.study-privacy{font-size:.88rem}
+@media print{body:has(#studyQuestionsSection[style*="block"]) #home,body:has(#studyQuestionsSection[style*="block"]) #page,body:has(#studyQuestionsSection[style*="block"]) header,body:has(#studyQuestionsSection[style*="block"]) .study-actions,body:has(#studyQuestionsSection[style*="block"]) .back{display:none!important}
+body:has(#studyQuestionsSection[style*="block"]) #studyQuestionsSection{display:block!important}
+.study-item textarea{border:1px solid #bbb;min-height:65px}}
+</style></head><body>
 <script>document.body.classList.remove('video-modal-open');</script><header><h1>Teori styrketräning Fribergaskolan</h1><p>Lär dig grunderna, testa dina kunskaper och bli din egen coach.</p></header><main class="wrap"><section id="home"><div class="grid" id="grid"></div><div class="gym-motto">Kunskap • Träning • Resultat</div></section><section id="page" class="page"><button class="back" onclick="home()">← Alla avsnitt</button><div class="lesson"><div class="num" id="chapterNo"></div><h2 id="title"></h2><div id="content"></div><button class="quizStart" id="quizStart" onclick="startQuiz()">Starta quiz →</button><div class="quiz" id="quiz"><h2>Quiz</h2><div id="questions"></div><div class="result" id="result"></div><button class="next" id="next" style="display:none" onclick="home()">Tillbaka till avsnitten</button></div></div></section>
 <section id="myWorkoutSection">
   <button class="back" onclick="home()">← Alla avsnitt</button>
@@ -1385,6 +1405,47 @@ body{
   </div>
 </section>
 
+<section id="studyQuestionsSection" style="display:none;max-width:1050px;margin:0 auto;padding:0 18px 50px">
+<button class="back" onclick="home()">← Alla avsnitt</button>
+<div class="study-shell"><div class="num">TRÄNA INFÖR PROVET</div>
+<h2>Instuderingsfrågor styrketräning</h2>
+<p>Skriv dina svar direkt under frågorna. Svaren sparas automatiskt på den här enheten i webbläsaren. Du kan fortsätta senare på samma enhet och i samma webbläsare.</p>
+<div class="study-status" id="studyStatus" role="status">Dina svar sparas lokalt.</div>
+<div id="studyQuestionsList"></div>
+<div class="study-actions"><button type="button" onclick="window.print()">Skriv ut / Spara som PDF</button>
+<button type="button" class="study-clear" onclick="clearStudyAnswers()">Radera alla mina svar</button></div>
+<p class="study-privacy">Inga svar skickas till någon server. Om webbläsarens lagrade webbplatsdata raderas försvinner även svaren.</p>
+</div></section>
+<section id="goalsSection" style="display:none;max-width:1050px;margin:0 auto;padding:0 18px 50px">
+ <button class="back" onclick="home()">← Alla avsnitt</button>
+ <div class="goals-shell">
+  <div class="num">KUNSKAPSMÅL</div>
+  <h2>Målbeskrivning styrketräning teori</h2>
+  <h3>Grunder</h3>
+  <p>Kan grundläggande fakta och begrepp om styrketräning till exempel. Kan ge exempel på övningar som tränar kroppens större muskelgrupper.</p>
+  <ul>
+   <li>Känna till varför styrketräning är viktigt.</li>
+   <li>Känna till vad som händer i kroppen när du tränar och vilka effekter regelbunden träningen har.</li>
+   <li>Känna till principer för styrketillväxt (varför blir du stark av träning?)</li>
+   <li>Känna till risker och vad som är viktigt att tänka på vid träning.</li>
+   <li>Känna till grundläggande begrepp inom styrketräning, som till exempel: superkompensation, dynamisk och statisk styrka, reps och set, mjölksyra, maximal och uthållig styrketräning, namnet på olika styrkeövningar.</li>
+   <li>Känna till namnen på de stora muskelgrupperna.</li>
+   <li>Känna till lite om kroppens anatomi (hur en muskel är uppbyggd)</li>
+   <li>Känna till funktionell träning</li>
+  </ul>
+  <h3>Bra kunskaper</h3>
+  <ul>
+   <li>Har goda kunskaper om styrketräning.</li>
+   <li>Ha förståelse för alla ovanstånde punkter.</li>
+   <li>Kan ge exempel, kunna namnet på, vilka muskler som tränas och visa på övningar för olika muskelgrupper</li>
+  </ul>
+  <h3>Mycket goda kunskaper</h3>
+  <ul>
+   <li>Har mycket goda kunskaper om styrketräning. Kan se samband, analysera och dra egna slutsatser om styrketräning.</li>
+   <li>Kan motivera vilka övningar och vilken typ av styrketräning som är lämpliga för olika personer.</li>
+  </ul>
+ </div>
+</section>
 <section id="testExamSection">
  <button class="back" onclick="home()">← Alla avsnitt</button>
  <div class="test-shell">
@@ -1716,9 +1777,57 @@ function awardWorkoutStar(){
 function render(){
  grid.innerHTML=chapters.map((c,i)=>`<article class="card plate-card" onclick="openCh(${i})">${mastered.has(i)?'<div class="master-star" title="Alla quizfrågor rätt">⭐</div>':''}${plateMarkup(c.t,'AVSNITT '+(i+1),i)}<div class="plate-action">${mastered.has(i)?'Alla rätt ⭐':'Öppna →'}</div></article>`).join('')
  +`<article class="card plate-card workout-card" onclick="openMyWorkout()">${localStorage.getItem(workoutStarKey)==='1'?'<div class="master-star workout-master-star" title="Eget pass skapat">⭐</div>':''}${plateMarkup('Eget pass','SKAPA PASS',chapters.length)}<div class="plate-action">Öppna →</div></article>`
- +`<article class="card plate-card test-card" onclick="openTestExam()">${plateMarkup('Testprov','50 FRÅGOR',chapters.length+1)}<div class="plate-action">Starta →</div></article>`;
+ +`<article class="card plate-card test-card" onclick="openTestExam()">${plateMarkup('Testprov','50 FRÅGOR',chapters.length+1)}<div class="plate-action">Starta →</div></article>`
+ +`<article class="card plate-card" onclick="openGoals()">${plateMarkup('Målbeskrivning','KUNSKAPSMÅL',chapters.length+2)}<div class="plate-action">Läs målen →</div></article>`
+ +`<article class="card plate-card" onclick="openStudyQuestions()">${plateMarkup('Instuderingsfrågor','37 FRÅGOR',chapters.length+3)}<div class="plate-action">Skriv dina svar →</div></article>`;
+}
+
+const studyQuestions=["Vad menas med dynamisk styrketräning?", "Vad menas med statisk styrketräning?", "Vad är mjölksyra?", "Hur är en muskel uppbyggd?", "Vad är det för skillnad på Typ1 och Typ 2 muskelfibrer?", "Känna till 2 principer för hur man ökar sin styrka. Vilken av principerna ger resultat på kort sikt och vilken på längre sikt?", "Varför är det viktigt att musklerna får återhämta sig efter ett träningspass?", "Vad innebär reps och set?", "Vad menas när man säger ”Bänkpress 3x10 på 40 kg”?", "Hur många set och reps bör du träna för a) bli maximalt stark b) bygga maximal muskelvolym c) orka maximalt många repetitioner av armhävningar?", "Vad menas med koncentrisk och excentrisk träning?", "Varför ska du tänka på att värma upp innan du börjar styrketräna?", "Vad menas med bålträning/coreträning?", "Varför ska du lägga bålträningen sist i ett styrketräningspass?", "Vad ska man tänka på för att undvika skador vid styrketräning?", "Kan du namnen på alla stora muskelgrupper? (Skriv och dra pilar!)", "Funktionell träning – vad är det? Ge exempel.", "Kunna ge exempel på övningar som tränar olika muskelgrupper och vilka muskler som i huvudsak tränas.", "Tony ska precis börja med styrketräning och vill bara träna 3 övningar. Vilka övningar rekommenderar du? Han vill att övningarna ska träna så många muskler som möjligt.", "I alla styrkeövningar är det viktigt att använda coremusklerna. Varför då?", "Vad avgör hur stark du är när du utför en styrkeövning?", "Varför är det bra att träna styrka?", "Vilka tre typer av muskulatur finns i kroppen?", "Beskriv skelettet och dess funktion.", "Vilka muskler tränas vid bänkpress?", "Vilka muskler tränas vid chins?", "Om någon som ska köra bänkpress ber dig att ”passa”, vad ska du göra? Varför?", "Varför ska man inte träna samma muskelgrupp tungt varje dag?", "Varför kan maximal styrketräning innebära större skaderisk än uthållig styrketräning?", "Hur kan du värma upp om du inte har några maskiner att värma upp på?", "Nämn en övning som tränar deltoideus.", "Nämn en övning som tränar pectoralis.", "Nämn en övning som tränar biceps.", "Nämn en övning som tränar quadriceps.", "Nämn en övning som tränar latissimus dorsi.", "Nämn en övning som tränar abdominis.", "Nämn en övning som tränar triceps."];
+const studyStorageKey='friberga_styrka_instuderingsfragor_v1';
+function getStudyAnswers(){
+ try {const x=JSON.parse(localStorage.getItem(studyStorageKey)||'{}');return x&&typeof x==='object'?x:{}}
+ catch(e){return {}}
+}
+function openStudyQuestions(){
+ document.getElementById('home').style.display='none';
+ document.getElementById('page').classList.remove('active');
+ ['goalsSection','testExamSection','myWorkoutSection','muscleVisualQuizSection','muscleLearnSection'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});
+ const root=document.getElementById('studyQuestionsSection');root.style.display='block';
+ const saved=getStudyAnswers();
+ const list=document.getElementById('studyQuestionsList');
+ list.replaceChildren();
+ studyQuestions.forEach((q,i)=>{
+  const article=document.createElement('article');article.className='study-item';
+  const label=document.createElement('label');label.htmlFor='studyAnswer'+i;
+  label.textContent=(i+1)+'. '+q;
+  const input=document.createElement('textarea');input.id='studyAnswer'+i;input.rows=3;
+  input.placeholder='Skriv ditt svar här…';input.value=typeof saved[i]==='string'?saved[i]:'';
+  input.addEventListener('input',()=>{
+   const answers=getStudyAnswers();answers[i]=input.value;
+   const status=document.getElementById('studyStatus');
+   try{localStorage.setItem(studyStorageKey,JSON.stringify(answers));status.textContent='Sparat automatiskt • '+studyQuestions.filter((_,j)=>String(answers[j]||'').trim()).length+' av '+studyQuestions.length+' besvarade';}
+   catch(e){status.textContent='Kunde inte spara. Kontrollera att webbläsaren tillåter lokal lagring.'}
+  });
+  article.append(label,input);list.appendChild(article);
+ });
+ document.getElementById('studyStatus').textContent='Sparat lokalt • '+studyQuestions.filter((_,j)=>String(saved[j]||'').trim()).length+' av '+studyQuestions.length+' besvarade';
+ window.scrollTo(0,0);
+}
+function clearStudyAnswers(){
+ if(!confirm('Vill du radera alla dina sparade svar på instuderingsfrågorna?'))return;
+ localStorage.removeItem(studyStorageKey);openStudyQuestions();
+}
+
+function openGoals(){
+ document.getElementById('home').style.display='none';
+ document.getElementById('page').classList.remove('active');
+ ['testExamSection','myWorkoutSection','muscleVisualQuizSection','muscleLearnSection'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none'});
+ document.getElementById('studyQuestionsSection').style.display='none';
+ document.getElementById('goalsSection').style.display='block';
+ window.scrollTo(0,0);
 }
 function openCh(i){
+ const gs=document.getElementById('goalsSection');if(gs)gs.style.display='none'; const sq=document.getElementById('studyQuestionsSection');if(sq)sq.style.display='none';
  current=i;
  document.getElementById('home').style.display='none';
  const mqs=document.getElementById('muscleVisualQuizSection');
@@ -1739,6 +1848,7 @@ function openCh(i){
  window.scrollTo(0,0)
 }
 function home(){
+ const gs=document.getElementById('goalsSection');if(gs)gs.style.display='none'; const sq=document.getElementById('studyQuestionsSection');if(sq)sq.style.display='none';
  const ts=document.getElementById('testExamSection'); if(ts)ts.style.display='none';
  const mw=document.getElementById('myWorkoutSection'); if(mw)mw.style.display='none';
  page.classList.remove('active');
@@ -2364,6 +2474,7 @@ function addMwExercise(btn){
  list.appendChild(row);
 }
 function openMyWorkout(){
+ const gs=document.getElementById('goalsSection');if(gs)gs.style.display='none'; const sq=document.getElementById('studyQuestionsSection');if(sq)sq.style.display='none';
  document.getElementById('home').style.display='none';document.getElementById('page').classList.remove('active');
  const ml=document.getElementById('muscleLearnSection');if(ml)ml.style.display='none';
  const mq=document.getElementById('muscleVisualQuizSection');if(mq)mq.style.display='none';
@@ -2398,6 +2509,7 @@ function buildTestBank(){
  return bank;
 }
 function openTestExam(){
+ const gs=document.getElementById('goalsSection');if(gs)gs.style.display='none'; const sq=document.getElementById('studyQuestionsSection');if(sq)sq.style.display='none';
  document.getElementById('home').style.display='none';
  document.getElementById('page').classList.remove('active');
  const mw=document.getElementById('myWorkoutSection');if(mw)mw.style.display='none';
@@ -2416,8 +2528,14 @@ function startTestExam(){
    seen.add(key);return true;
  });
  activeTest=uniqueBank.slice(0,50);
+ // Fördela rätt svar jämnt mellan svarsalternativens positioner vid varje nytt prov.
+ const positions=shuffled(activeTest.map((_,i)=>i%4));
  const box=document.getElementById('testQuestions');
- box.innerHTML=activeTest.map((q,i)=>`<div class="test-q"><h3>${i+1}. ${q.q}</h3>${shuffled(q.a).map(a=>`<label class="test-answer"><input type="radio" name="testq${i}" value="${String(a).replace(/"/g,'&quot;')}"> ${a}</label>`).join('')}</div>`).join('');
+ box.innerHTML=activeTest.map((q,i)=>{
+   const alternatives=shuffled(q.a.filter(a=>a!==q.correct));
+   alternatives.splice(Math.min(positions[i],alternatives.length),0,q.correct);
+   return `<div class="test-q"><h3>${i+1}. ${q.q}</h3>${alternatives.map(a=>`<label class="test-answer"><input type="radio" name="testq${i}" value="${String(a).replace(/"/g,'&quot;')}"> ${a}</label>`).join('')}</div>`;
+ }).join('');
  document.getElementById('testResult').innerHTML='';
  document.getElementById('testSubmit').style.display='inline-block';
 }
