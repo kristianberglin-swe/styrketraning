@@ -1867,11 +1867,18 @@ function startQuiz(){
   const nxt=document.getElementById('next');
   if(!qz||!qs||!res||!start||!nxt)return;
   res.textContent=''; nxt.style.display='none'; start.style.display='none'; qz.style.display='block';
-  qs.innerHTML=chapters[current].q.map((q,qi)=>`<div class="q" data-q="${qi}"><h3>${qi+1}. ${q[0]}</h3><div class="answers">${q[1].map((a,ai)=>`<button type="button" class="ans" data-qi="${qi}" data-ai="${ai}">${a}</button>`).join('')}</div><div class="feedback"></div></div>`).join('');
+  // Blanda svaren för varje avsnittsquiz och fördela rätt svar mellan positionerna.
+  const quizQuestions=chapters[current].q;
+  const answerPositions=shuffled(quizQuestions.map((_,i)=>i%4));
+  qs.innerHTML=quizQuestions.map((q,qi)=>{
+    const choices=shuffled(q[1].filter(a=>a!==q[2]));
+    choices.splice(Math.min(answerPositions[qi],choices.length),0,q[2]);
+    return `<div class="q" data-q="${qi}"><h3>${qi+1}. ${q[0]}</h3><div class="answers">${choices.map(a=>`<button type="button" class="ans" data-qi="${qi}" data-answer="${encodeURIComponent(a)}">${a}</button>`).join('')}</div><div class="feedback"></div></div>`;
+  }).join('');
   qs.querySelectorAll('.ans').forEach(function(btn){
     btn.addEventListener('click',function(){
-      const qi=Number(btn.dataset.qi), ai=Number(btn.dataset.ai);
-      answer(btn,qi,chapters[current].q[qi][1][ai]);
+      const qi=Number(btn.dataset.qi);
+      answer(btn,qi,decodeURIComponent(btn.dataset.answer));
     });
   });
   qz.scrollIntoView({behavior:'smooth',block:'start'});
